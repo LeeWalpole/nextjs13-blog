@@ -1,7 +1,7 @@
-
 {/* @ts-expect-error Server Component */}
+import Link from 'next/link';
 async function getData() {
-  const res = await fetch('https://www.flames.agency/api/profiles.json');
+  const res = await fetch('http://127.0.0.1:10009/wp-json/data/v1/profiles/');
   // The return value is *not* serialized
   // You can return Date, Map, Set, etc.
 
@@ -21,7 +21,9 @@ export default async function Page() {
     <div>
       {profiles.map((profile) => (
         <div key={profile.id}>
+          <Link href={`/${profile.username}`} >
           <h2>{profile.display_name}</h2>
+          </Link>
           <p>{profile.bio}</p>
           <img src={profile.avatar_url} alt={profile.avatar_alt} />
           <h3>Gallery</h3>
@@ -35,7 +37,6 @@ export default async function Page() {
         </div>
       ))}
     </div>
-
   </main>;
 }
 
